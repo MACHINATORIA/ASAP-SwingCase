@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<palette>
+    <category
+        id="asapPattern"
+        name="ASAP_Pattern"
+        description="ASAP Pattern"
+        open="false">
+        <component
+            class="asap.ui.swing.useCase.panel.PatternSelectionReview"
+            name="SelectionR" />
+        <component
+            class="asap.ui.swing.useCase.panel.PatternInstructionConfirmation"
+            name="Confirmation" />
+        <component
+            class="asap.ui.swing.useCase.panel.PatternInstructionSelectionReview"
+            name="SelectionIR" />
+        <component
+            class="asap.ui.swing.useCase.panel.PatternInstructionDualSelectionReview"
+            name="DualSelectionIR" />
+        <component
+            class="asap.ui.swing.useCase.panel.PanelInstructionSequentialByteArraysSet"
+            name="SetBytes" />
+        <component
+            class="asap.ui.swing.useCase.panel.PanelInstructionSequentialPasswordsSet"
+            name="SetPasswords" />
+        <component
+            class="asap.ui.swing.useCase.panel.PanelInstructionSequentialPasswordsLoad"
+            name="LoadPasswords" />
+    </category>
+</palette> 

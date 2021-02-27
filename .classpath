@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="module-info.java" kind="src" path="src/java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ASAP-100 - Primitive">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/ASAP-101 - Smartcard">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/ASAP-102 - SwingInterface">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
