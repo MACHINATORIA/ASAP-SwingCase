@@ -48,11 +48,11 @@ public abstract class SmartcardFormController< S extends SmartcardService, T ext
         }
     }
 
-    protected void eventServiceChanged( boolean sourceService ) {
+    protected void eventServiceChanged( boolean isSourceService ) {
         this.formReset( );
         if ( !this.navStopping( ) ) {
             if ( this.descriptionText != null ) {
-                String[ ] tmpDescription = this.buildServicesDescription( sourceService );
+                String[ ] tmpDescription = this.buildServicesDescriptions( isSourceService );
                 if ( tmpDescription != null ) {
                     this.descriptionText.setText( HtmlHelper.formatSingleColumnTable( tmpDescription ) );
                 }
@@ -60,13 +60,13 @@ public abstract class SmartcardFormController< S extends SmartcardService, T ext
         }
         if ( !this.navStopping( ) //
              && this.navSelected( )
-             && ( ( sourceService ? this.sourceService
-                                  : this.targetService ).get( ) == null ) ) {
-            this.warnServiceRemoved( sourceService );
+             && ( ( isSourceService ? this.sourceService
+                                    : this.targetService ).get( ) == null ) ) {
+            this.dealWithServiceRemoval( isSourceService );
         }
     }
 
-    protected abstract String[ ] buildServicesDescription( boolean sourceService );
+    protected abstract String[ ] buildServicesDescriptions( boolean sourceServiceChanged );
 
-    protected abstract void warnServiceRemoved( boolean sourceService );
+    protected abstract void dealWithServiceRemoval( boolean isSourceService );
 }

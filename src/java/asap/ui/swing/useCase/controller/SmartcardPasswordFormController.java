@@ -69,7 +69,7 @@ public abstract class SmartcardPasswordFormController< S extends SmartcardServic
          */
         tmpManager.setStatic( InputGuidance.Count_Zero,
                               GuidanceType.Alert,
-                              "Nenhuma senha definida" );
+                              "Nenhuma senha foi transmitida" );
         tmpManager.setStatic( InputGuidance.Count_BelowMinimum,
                               GuidanceType.Warning,
                               "Quantidade de senhas inferior ao mínimo exigido" );
@@ -78,7 +78,7 @@ public abstract class SmartcardPasswordFormController< S extends SmartcardServic
                               "Quantidade de senhas suficiente para prosseguir" );
         tmpManager.setStatic( InputGuidance.Count_PrecedesMaximum,
                               GuidanceType.Warning,
-                              "Só será permitido definir mais uma senha" );
+                              "Só será permitido transmitir mais uma senha" );
         tmpManager.setStatic( ArrayHelper.build( InputGuidance.Count_ReachesMaximum,
                                                  InputGuidance.Sequence_ReachesMaximum ),
                               GuidanceType.Alert,

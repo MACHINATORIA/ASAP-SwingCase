@@ -19,7 +19,7 @@ public abstract class SmartcardInputFormController< SS extends SmartcardService,
 
     protected SmartcardInputFormController( EPanel formPanel,
                                             ETextPane instructionText,
-                                            Class<?> instructionResourceClass,
+                                            Class< ? > instructionResourceClass,
                                             String instructionResourceName,
                                             ETextPane descriptionText,
                                             ELabel countNumber,
@@ -66,7 +66,7 @@ public abstract class SmartcardInputFormController< SS extends SmartcardService,
         //
         this.setRegularGuidance( );
         this.setSpecificGuidance( );
-        this.inputController.guidance.setDynamic( ( message ) -> {
+        this.inputController.guidance.setDynamicBuilder( ( message ) -> {
             return this.buildDynamicGuidance( message );
         } );
         this.inputController.setInputPermission( ( ) -> {
@@ -74,12 +74,30 @@ public abstract class SmartcardInputFormController< SS extends SmartcardService,
         } );
         //
         this.inputController.setSubmitTask( ( ) -> {
-            return this.submitInput( );
+            return this.inputControllerSubmit( );
         } );
         this.inputController.setChangeListener( ( ) -> {
             this.navUpdate( );
         } );
         //
+    }
+
+    @Override
+    protected void formReset( ) {
+        this.inputController.reset( );
+    }
+
+    @Override
+    protected boolean formCanBack( ) {
+        return ( ( ( this.sourceService != null ) && ( this.sourceService.get( ) == null ) )
+                 || ( this.targetService.get( ) == null )
+                 || ( this.inputController.getInputCount( ) == 0 ) );
+    }
+
+    @Override
+    protected boolean formCanNext( ) {
+        return ( this.isServicesValid( )
+                 && ( this.inputController.getInputCount( ) >= this.inputController.minimumCount ) );
     }
 
     protected boolean isServicesValid( ) {
@@ -96,7 +114,7 @@ public abstract class SmartcardInputFormController< SS extends SmartcardService,
                                                  InputGuidance.Sequence_Disallowed,
                                                  InputGuidance.Input_Disallowed ),
                               GuidanceType.Alert,
-                              "Nenhum cartão de custódia selecionado." );
+                              "A digitação/confirmação está desabilitada." );
         /*
          * 
          */
@@ -208,15 +226,17 @@ public abstract class SmartcardInputFormController< SS extends SmartcardService,
         return null;
     }
 
-    @Override
-    protected void formReset( ) {
-        this.inputController.reset( );
-    }
-
-    @Override
-    protected boolean formCanNext( ) {
-        return ( this.isServicesValid( )
-                 && ( this.inputController.getInputCount( ) >= this.inputController.minimumCount ) );
+    protected boolean inputControllerSubmit( ) {
+        SS tmpSourceService = ( this.sourceService == null ) ? null
+                                                             : this.sourceService.get( );
+        TS tmpTargetService = this.targetService.get( );
+        if ( ( ( this.sourceService == null ) || ( tmpSourceService != null ) ) && ( tmpTargetService != null ) ) {
+            int tmpSequence = this.inputController.getInputCount( );
+            byte[ ] tmpInput = this.inputController.getTypingText( ).getBytes( );
+            return this.submitInput( tmpSequence,
+                                     tmpInput );
+        }
+        return false;
     }
 
     protected abstract void setSpecificGuidance( );
@@ -226,5 +246,6 @@ public abstract class SmartcardInputFormController< SS extends SmartcardService,
     protected abstract String formatInputReview( boolean valid,
                                                  String typingLength );
 
-    protected abstract boolean submitInput( );
+    protected abstract boolean submitInput( int sequence,
+                                            byte[ ] input );
 }

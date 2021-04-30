@@ -59,8 +59,8 @@ public class GuidanceManager< M extends Enum< M > > {
                                texts );
     }
 
-    public GuidanceManager< M > setDynamic( ValueBuilder< M, GuidanceAttributes > dynamicGuidance ) {
-        this.dynamicBuilder = dynamicGuidance;
+    public GuidanceManager< M > setDynamicBuilder( ValueBuilder< M, GuidanceAttributes > dynamicBuilder ) {
+        this.dynamicBuilder = dynamicBuilder;
         return this;
     }
 
